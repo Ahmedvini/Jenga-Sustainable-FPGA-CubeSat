@@ -1,0 +1,8 @@
+"""Shared constants for the EcoSat power and orbit models."""
+
+ORBIT_MINUTES = 95.0
+SUNLIGHT_MINUTES = 57.0
+ECLIPSE_MINUTES = 38.0
+SYSTEM_VOLTAGE_V = 3.3
+HOURS_PER_DAY = 24.0
+ORBITS_PER_DAY = HOURS_PER_DAY * 60.0 / ORBIT_MINUTES

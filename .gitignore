@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.vcd
+*.fst
+*.out
+*.log
+*.jou
+*.pb
+*.wdb
+results/reports/*.pdf
+video/*.mp4

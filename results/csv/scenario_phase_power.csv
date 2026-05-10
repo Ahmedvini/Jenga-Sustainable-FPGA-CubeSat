@@ -1,0 +1,24 @@
+scenario,phase,duration_min,load,current_ma,voltage_v,power_mw
+modular_duty_cycled,Sunlight,57.00,"OBC STM32L496, active 80 MHz",12.00,3.30,39.60
+modular_duty_cycled,Sunlight,57.00,"Power module, charging and tracking",5.20,3.30,17.16
+modular_duty_cycled,Sunlight,57.00,"Sensing module, 10 Hz sample",8.50,3.30,28.05
+modular_duty_cycled,Sunlight,57.00,"Comms module, TX/RX active",35.00,3.30,115.50
+modular_duty_cycled,Eclipse,38.00,"OBC STM32L496, low-power 4 MHz",2.10,3.30,6.93
+modular_duty_cycled,Eclipse,38.00,"Power module, battery monitor only",1.80,3.30,5.94
+modular_duty_cycled,Eclipse,38.00,"Sensing module, 1 Hz low-rate sample",0.90,3.30,2.97
+modular_duty_cycled,Eclipse,38.00,"Comms module, rail switched off",0.01,3.30,0.03
+hybrid_fpga_burst,Sunlight acquisition,51.00,"OBC STM32L496, active 80 MHz",12.00,3.30,39.60
+hybrid_fpga_burst,Sunlight acquisition,51.00,"Power module, charging and tracking",5.20,3.30,17.16
+hybrid_fpga_burst,Sunlight acquisition,51.00,"Sensing module, 10 Hz sample",8.50,3.30,28.05
+hybrid_fpga_burst,Sunlight acquisition,51.00,"Comms module, idle rail enabled",0.01,3.30,0.03
+hybrid_fpga_burst,Sunlight acquisition,51.00,"Spartan FPGA accelerator, rail off",0.01,3.30,0.03
+hybrid_fpga_burst,FPGA processing and compressed downlink,6.00,"OBC STM32L496, active 80 MHz",12.00,3.30,39.60
+hybrid_fpga_burst,FPGA processing and compressed downlink,6.00,"Power module, charging and tracking",5.20,3.30,17.16
+hybrid_fpga_burst,FPGA processing and compressed downlink,6.00,"Sensing module, 10 Hz sample",8.50,3.30,28.05
+hybrid_fpga_burst,FPGA processing and compressed downlink,6.00,"Comms module, TX/RX active",35.00,3.30,115.50
+hybrid_fpga_burst,FPGA processing and compressed downlink,6.00,"Spartan FPGA accelerator, burst active",28.00,3.30,92.40
+hybrid_fpga_burst,Eclipse,38.00,"OBC STM32L496, low-power 4 MHz",2.10,3.30,6.93
+hybrid_fpga_burst,Eclipse,38.00,"Power module, battery monitor only",1.80,3.30,5.94
+hybrid_fpga_burst,Eclipse,38.00,"Sensing module, 1 Hz low-rate sample",0.90,3.30,2.97
+hybrid_fpga_burst,Eclipse,38.00,"Comms module, rail switched off",0.01,3.30,0.03
+hybrid_fpga_burst,Eclipse,38.00,"Spartan FPGA accelerator, rail off",0.01,3.30,0.03

@@ -140,23 +140,3 @@ EcoSat-Sustainable-FPGA-CubeSat/
 | Implementation evidence | Python model, tests, Verilog RTL modules, RTL testbenches |
 | Sustainability argument | Energy savings, battery-cycle reduction, thermal-load reduction, modular reuse |
 | Reproducibility | `python3 simulation/main.py` and `python3 tests/run_tests.py` |
-
-## Final Submission Notes
-
-Some binary assets are placeholders and should be replaced before final
-submission:
-
-- Official component datasheets in `docs/references/`
-- Polished labeled diagrams in `docs/architecture/`
-- Final presentation PDF in `presentation/Phase1_Presentation.pdf`
-- Final demo video in `video/demo_video.mp4`
-- Real Vivado/ModelSim synthesis and timing reports in `rtl/synthesis_reports/`
-
-Keep the README, technical design document, presentation, video, and simulation
-outputs numerically consistent. The safest headline claim is:
-
-```text
-EcoSat reduces average subsystem power from 242.55 mW to 126.54 mW,
-saving 47.83% energy per orbit in the conservative modular duty-cycled case.
-```
-

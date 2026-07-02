@@ -51,6 +51,10 @@ The safe-mode case is a policy-robustness check, not a savings claim: below
   `results/csv/scenario_phase_power.csv`.
 - Tools: Python 3 (stdlib-only core model), Icarus Verilog for RTL testbenches,
   GCC for the PMEP protocol demo.
+- RTL implementation: Vivado 2025.2, out-of-context, two targets — ZCU106
+  (Zynq UltraScale+ XCZU7EV, development) and Zynq-7010 (28 nm Spartan-class
+  fabric, flight reference). 44 LUTs / 90 FFs, timing met at 100 MHz, ~1–2 mW
+  dynamic; reports in `rtl/synthesis_reports/`.
 
 ## Net-savings accounting (control and decision-logic overhead)
 

@@ -13,3 +13,7 @@ venv/
 results/reports/*.pdf
 video/*.mp4
 01_Challenge_1_Finalist_Requirements_and_Deadlines.docx.pdfpmep_demo
+vivado_project/
+.Xil/
+*.str
+clockInfo.txt

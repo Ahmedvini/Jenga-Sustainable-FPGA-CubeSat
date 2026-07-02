@@ -30,6 +30,7 @@ decisions; the author can explain and defend every part of the submission.
 | matplotlib | Generating result plots in `results/graphs/` |
 | pytest | Optional test runner (tests also run dependency-free via `tests/run_tests.py`) |
 | Icarus Verilog (iverilog/vvp) | RTL simulation of the FPGA accelerator modules |
+| AMD Vivado 2025.2 | Out-of-context synthesis/implementation reports (ZCU106 and Zynq-7010 targets) |
 | GCC | Compiling the PMEP protocol demonstration |
 
 ## External references

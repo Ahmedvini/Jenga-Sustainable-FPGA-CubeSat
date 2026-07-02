@@ -9,16 +9,16 @@ module fpga_accelerator_top (
     output wire comms_power_en,
     output wire filter_valid,
     output wire compression_valid,
-    output wire fir_valid
+    output wire fir_valid,
+    output wire [63:0] filtered_payload,
+    output wire [7:0] rle_value,
+    output wire [7:0] rle_count,
+    output wire signed [15:0] fir_sample
 );
     wire sunlight;
     wire run_compression;
     wire run_filter;
     wire workload_pending;
-    wire [63:0] filtered_payload;
-    wire [7:0] rle_value;
-    wire [7:0] rle_count;
-    wire signed [15:0] fir_sample;
 
     assign workload_pending = run_compression || run_filter || packet_ready;
 

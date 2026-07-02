@@ -1,0 +1,17 @@
+# Yosys synthesis for the iCEstick evaluation wrapper (iCE40HX1K).
+# Run from this directory: yosys -s synth.ys  (or use the Makefile)
+
+read_verilog -I../../fir_filter -I../../can_filter \
+    ../../fir_filter/fir_filter.v \
+    ../../compression/rle_compressor.v \
+    ../../can_filter/packet_classifier.v \
+    ../../can_filter/can_packet_filter.v \
+    ../../top/orbit_controller.v \
+    ../../top/scheduler.v \
+    ../../top/power_controller.v \
+    ../../top/fpga_accelerator_top.v \
+    icestick_top.v
+
+hierarchy -top icestick_top
+synth_ice40 -top icestick_top -json build/icestick_top.json
+tee -o ../../synthesis_reports/icestick/yosys_stat.rpt stat

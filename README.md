@@ -126,6 +126,7 @@ The FPGA implementation scaffold is in `rtl/`:
 | `rtl/common/` | FIFO, clock divider, edge detector, debounce, UART debug |
 | `rtl/simulations/iverilog/` | Icarus Verilog build-and-run script |
 | `rtl/synthesis/vivado/` | Vivado batch/GUI flow scripts and OOC constraints |
+| `rtl/synthesis/icestick/` | Open-source Yosys/nextpnr flow for iCE40HX1K |
 | `rtl/synthesis_reports/` | Generated utilization, timing, and power reports |
 
 With Icarus Verilog installed:
@@ -161,6 +162,21 @@ is dominated by static leakage, which is 6.5× lower on the 28 nm part. That
 gap is the quantitative reason the flight design specifies a small
 Spartan-class FPGA on a switched rail rather than a large MPSoC — the ZCU106
 target validates the toolflow and demonstrates portability, not flight power.
+
+### Open-source flow evidence (Lattice iCEstick)
+
+The same RTL also builds with a fully open-source flow (Yosys →
+nextpnr-ice40 → icepack) for the iCEstick's iCE40HX1K: **280 of 1280 logic
+cells (21.9%)**, zero BRAM/DSP, and timing passed at the board's 12 MHz
+clock with Fmax ≈ 106 MHz. No vendor tools or licenses required:
+
+```bash
+make -C rtl/synthesis/icestick all stat-core schematic
+```
+
+`rtl/synthesis_reports/icestick/REPORT.md` consolidates utilization,
+timing/WNS, the portability review, and a three-target cross-vendor
+comparison (ZCU106 vs Zynq-7010 vs iCE40HX1K).
 
 ## PMEP Protocol Demo
 

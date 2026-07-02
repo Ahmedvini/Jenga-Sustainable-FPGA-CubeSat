@@ -31,6 +31,7 @@ decisions; the author can explain and defend every part of the submission.
 | pytest | Optional test runner (tests also run dependency-free via `tests/run_tests.py`) |
 | Icarus Verilog (iverilog/vvp) | RTL simulation of the FPGA accelerator modules |
 | AMD Vivado 2025.2 | Out-of-context synthesis/implementation reports (ZCU106 and Zynq-7010 targets) |
+| Yosys, nextpnr-ice40, IceStorm (icepack/icetime) | Open-source synthesis/P&R/timing for the iCE40HX1K (iCEstick) target |
 | GCC | Compiling the PMEP protocol demonstration |
 
 ## External references

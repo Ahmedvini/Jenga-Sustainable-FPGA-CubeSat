@@ -17,3 +17,4 @@ vivado_project/
 .Xil/
 *.str
 clockInfo.txt
+rtl/synthesis/icestick/build/

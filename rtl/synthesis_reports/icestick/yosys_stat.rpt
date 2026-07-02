@@ -1,0 +1,21 @@
+
+12. Printing statistics.
+
+=== icestick_top ===
+
+   Number of wires:                125
+   Number of wire bits:            852
+   Number of public wires:         125
+   Number of public wire bits:     852
+   Number of memories:               0
+   Number of memory bits:            0
+   Number of processes:              0
+   Number of cells:                410
+     SB_CARRY                       77
+     SB_DFF                         32
+     SB_DFFE                         3
+     SB_DFFESR                      77
+     SB_DFFSR                       38
+     SB_DFFSS                        2
+     SB_LUT4                       181
+

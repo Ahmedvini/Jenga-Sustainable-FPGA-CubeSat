@@ -1,0 +1,17 @@
+# Lattice iCEstick (iCE40HX1K-TQ144) minimal constraints.
+# Only the clock and the five on-board LEDs are pinned; the core's real
+# I/O never leaves the chip in this evaluation build.
+
+set_io clk 21        # 12 MHz on-board oscillator
+
+set_io led[0] 99     # D1 (red)
+set_io led[1] 98     # D2 (red)
+set_io led[2] 97     # D3 (red)
+set_io led[3] 96     # D4 (red)
+set_io led[4] 95     # D5 (green, center)
+
+# Placeholders for a future real integration (uncomment and rename):
+# PMOD J2:   set_io <signal> 78 | 79 | 80 | 81 | 87 | 88 | 90 | 91
+# Header J1: set_io <signal> 112 | 113 | 114 | 115 | 116 | 117 | 118 | 119
+# Header J3: set_io <signal> 62 | 61 | 60 | 56 | 48 | 47 | 45 | 44
+# IrDA:      set_io <signal> 106 (RXD) | 105 (TXD) | 107 (SD)

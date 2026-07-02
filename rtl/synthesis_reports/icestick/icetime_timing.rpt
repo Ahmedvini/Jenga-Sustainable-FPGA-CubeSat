@@ -5,106 +5,103 @@ icetime topological timing analysis report
 Report for critical path:
 -------------------------
 
-        lc40_5_4_1 (LogicCell40) [clk] -> lcout: 0.640 ns
-     0.640 ns net_8529 (core_i.orbit_i.tick[1])
-        t270 (LocalMux) I -> O: 0.330 ns
-        inmux_4_4_8586_8610 (InMux) I -> O: 0.260 ns
-        t34 (CascadeMux) I -> O: 0.000 ns
-        lc40_4_4_1 (LogicCell40) in2 -> lcout: 0.379 ns
-     1.608 ns net_6663 (core_i.orbit_i.sunlight_SB_DFFSS_Q_D_SB_LUT4_O_I0_SB_LUT4_O_I0[0])
-        t203 (LocalMux) I -> O: 0.330 ns
-        inmux_4_5_8701_8727 (InMux) I -> O: 0.260 ns
-        t36 (CascadeMux) I -> O: 0.000 ns
-        lc40_4_5_0 (LogicCell40) in2 -> carryout: 0.231 ns
-     2.428 ns t2
-        lc40_4_5_1 (LogicCell40) carryin -> carryout: 0.126 ns
-     2.555 ns t3
-        lc40_4_5_2 (LogicCell40) carryin -> carryout: 0.126 ns
-     2.681 ns t4
-        lc40_4_5_3 (LogicCell40) carryin -> carryout: 0.126 ns
-     2.807 ns t5
-        lc40_4_5_4 (LogicCell40) carryin -> carryout: 0.126 ns
-     2.933 ns t6
-        lc40_4_5_5 (LogicCell40) carryin -> carryout: 0.126 ns
-     3.060 ns t7
-        lc40_4_5_6 (LogicCell40) carryin -> carryout: 0.126 ns
-     3.186 ns t8
-        lc40_4_5_7 (LogicCell40) carryin -> carryout: 0.126 ns
-     3.312 ns net_8766 (core_i.orbit_i.sunlight_SB_DFFSS_Q_D_SB_LUT4_O_I0_SB_LUT4_O_I0[7])
-        t9 (ICE_CARRY_IN_MUX) carryinitin -> carryinitout: 0.196 ns
-        lc40_4_6_0 (LogicCell40) carryin -> carryout: 0.126 ns
-     3.635 ns t10
-        lc40_4_6_1 (LogicCell40) carryin -> carryout: 0.126 ns
-     3.761 ns t11
-        lc40_4_6_2 (LogicCell40) carryin -> carryout: 0.126 ns
-     3.887 ns t12
-        lc40_4_6_3 (LogicCell40) carryin -> carryout: 0.126 ns
-     4.013 ns t13
-        lc40_4_6_4 (LogicCell40) carryin -> carryout: 0.126 ns
-     4.140 ns t14
-        lc40_4_6_5 (LogicCell40) carryin -> carryout: 0.126 ns
-     4.266 ns t15
-        lc40_4_6_6 (LogicCell40) carryin -> carryout: 0.126 ns
-     4.392 ns t16
-        lc40_4_6_7 (LogicCell40) carryin -> carryout: 0.126 ns
-     4.518 ns net_8889 (core_i.orbit_i.sunlight_SB_DFFSS_Q_D_SB_LUT4_O_I0_SB_LUT4_O_I0[15])
-        t17 (ICE_CARRY_IN_MUX) carryinitin -> carryinitout: 0.196 ns
-        lc40_4_7_0 (LogicCell40) carryin -> carryout: 0.126 ns
-     4.841 ns t18
-        lc40_4_7_1 (LogicCell40) carryin -> carryout: 0.126 ns
-     4.967 ns t19
-        lc40_4_7_2 (LogicCell40) carryin -> carryout: 0.126 ns
-     5.094 ns t20
-        lc40_4_7_3 (LogicCell40) carryin -> carryout: 0.126 ns
-     5.220 ns t21
-        lc40_4_7_4 (LogicCell40) carryin -> carryout: 0.126 ns
-     5.346 ns t22
-        lc40_4_7_5 (LogicCell40) carryin -> carryout: 0.126 ns
-     5.472 ns t23
-        lc40_4_7_6 (LogicCell40) carryin -> carryout: 0.126 ns
-     5.599 ns t24
-        lc40_4_7_7 (LogicCell40) carryin -> carryout: 0.126 ns
-     5.725 ns net_9012 (core_i.orbit_i.sunlight_SB_DFFSS_Q_D_SB_LUT4_O_I0_SB_LUT4_O_I0[23])
-        t25 (ICE_CARRY_IN_MUX) carryinitin -> carryinitout: 0.196 ns
-        lc40_4_8_0 (LogicCell40) carryin -> carryout: 0.126 ns
-     6.047 ns t26
-        lc40_4_8_1 (LogicCell40) carryin -> carryout: 0.126 ns
-     6.174 ns t27
-        lc40_4_8_2 (LogicCell40) carryin -> carryout: 0.126 ns
-     6.300 ns t28
-        lc40_4_8_3 (LogicCell40) carryin -> carryout: 0.126 ns
-     6.426 ns t29
-        lc40_4_8_4 (LogicCell40) carryin -> carryout: 0.126 ns
-     6.552 ns t30
-        lc40_4_8_5 (LogicCell40) carryin -> carryout: 0.126 ns
-     6.679 ns net_9123 (core_i.orbit_i.sunlight_SB_DFFSS_Q_D_SB_LUT4_O_I0_SB_LUT4_O_I0[29])
-        lc40_4_8_6 (LogicCell40) carryin -> carryout: 0.126 ns
-     6.805 ns net_9129 ($nextpnr_ICESTORM_LC_1$I3)
-        inmux_4_8_9129_9139 (InMux) I -> O: 0.260 ns
-        lc40_4_8_7 (LogicCell40) in3 -> lcout: 0.316 ns
-     7.380 ns net_7077 (core_i.orbit_i.sunlight_SB_DFFSS_Q_D_SB_LUT4_O_I0_SB_LUT4_O_I0[30])
-        t237 (LocalMux) I -> O: 0.330 ns
-        inmux_4_8_9092_9130 (InMux) I -> O: 0.260 ns
-        lc40_4_8_6 (LogicCell40) in0 -> lcout: 0.449 ns
-     8.418 ns net_7076 (core_i.orbit_i.sunlight_SB_DFFSS_Q_D_SB_LUT4_O_I0[3])
-        t236 (LocalMux) I -> O: 0.330 ns
-        inmux_5_8_11175_11214 (InMux) I -> O: 0.260 ns
-     9.007 ns net_11214 (core_i.orbit_i.sunlight_SB_DFFSS_Q_D_SB_LUT4_O_I0[3])
-        lc40_5_8_2 (LogicCell40) in0 [setup]: 0.400 ns
-     9.407 ns net_9022 (core_i.sunlight)
+        lc40_8_1_0 (LogicCell40) [clk] -> lcout: 0.640 ns
+     0.640 ns net_14444 (core_i.orbit_i.sunlight_SB_DFFESS_Q_D_SB_LUT4_O_I1_SB_LUT4_O_I0[2])
+        odrv_8_1_14444_14604 (Odrv4) I -> O: 0.372 ns
+        t877 (LocalMux) I -> O: 0.330 ns
+        inmux_7_2_14662_14691 (InMux) I -> O: 0.260 ns
+        lc40_7_2_1 (LogicCell40) in3 -> lcout: 0.316 ns
+     1.916 ns net_12464 (core_i.orbit_i.sunlight_SB_DFFESS_Q_D_SB_LUT4_O_I2_SB_LUT4_O_I2[1])
+        t764 (LocalMux) I -> O: 0.330 ns
+        inmux_7_2_14658_14689 (InMux) I -> O: 0.260 ns
+        lc40_7_2_1 (LogicCell40) in1 -> carryout: 0.260 ns
+     2.765 ns t122
+        lc40_7_2_2 (LogicCell40) carryin -> carryout: 0.126 ns
+     2.891 ns t123
+        lc40_7_2_3 (LogicCell40) carryin -> carryout: 0.126 ns
+     3.018 ns t124
+        lc40_7_2_4 (LogicCell40) carryin -> carryout: 0.126 ns
+     3.144 ns t125
+        lc40_7_2_5 (LogicCell40) carryin -> carryout: 0.126 ns
+     3.270 ns t126
+        lc40_7_2_6 (LogicCell40) carryin -> carryout: 0.126 ns
+     3.396 ns t127
+        lc40_7_2_7 (LogicCell40) carryin -> carryout: 0.126 ns
+     3.523 ns net_14723 (core_i.orbit_i.sunlight_SB_DFFESS_Q_D_SB_LUT4_O_I2_SB_LUT4_O_I0[7])
+        t128 (ICE_CARRY_IN_MUX) carryinitin -> carryinitout: 0.196 ns
+        lc40_7_3_0 (LogicCell40) carryin -> carryout: 0.126 ns
+     3.845 ns t129
+        lc40_7_3_1 (LogicCell40) carryin -> carryout: 0.126 ns
+     3.971 ns t130
+        lc40_7_3_2 (LogicCell40) carryin -> carryout: 0.126 ns
+     4.098 ns t131
+        lc40_7_3_3 (LogicCell40) carryin -> carryout: 0.126 ns
+     4.224 ns t132
+        lc40_7_3_4 (LogicCell40) carryin -> carryout: 0.126 ns
+     4.350 ns t133
+        lc40_7_3_5 (LogicCell40) carryin -> carryout: 0.126 ns
+     4.476 ns t134
+        lc40_7_3_6 (LogicCell40) carryin -> carryout: 0.126 ns
+     4.603 ns t135
+        lc40_7_3_7 (LogicCell40) carryin -> carryout: 0.126 ns
+     4.729 ns net_14846 (core_i.orbit_i.sunlight_SB_DFFESS_Q_D_SB_LUT4_O_I2_SB_LUT4_O_I0[15])
+        t137 (ICE_CARRY_IN_MUX) carryinitin -> carryinitout: 0.196 ns
+        lc40_7_4_0 (LogicCell40) carryin -> carryout: 0.126 ns
+     5.051 ns t138
+        lc40_7_4_1 (LogicCell40) carryin -> carryout: 0.126 ns
+     5.178 ns t139
+        lc40_7_4_2 (LogicCell40) carryin -> carryout: 0.126 ns
+     5.304 ns t140
+        lc40_7_4_3 (LogicCell40) carryin -> carryout: 0.126 ns
+     5.430 ns t141
+        lc40_7_4_4 (LogicCell40) carryin -> carryout: 0.126 ns
+     5.556 ns t142
+        lc40_7_4_5 (LogicCell40) carryin -> carryout: 0.126 ns
+     5.683 ns t143
+        lc40_7_4_6 (LogicCell40) carryin -> carryout: 0.126 ns
+     5.809 ns t144
+        lc40_7_4_7 (LogicCell40) carryin -> carryout: 0.126 ns
+     5.935 ns net_14969 (core_i.orbit_i.sunlight_SB_DFFESS_Q_D_SB_LUT4_O_I2_SB_LUT4_O_I0[23])
+        t148 (ICE_CARRY_IN_MUX) carryinitin -> carryinitout: 0.196 ns
+        lc40_7_5_0 (LogicCell40) carryin -> carryout: 0.126 ns
+     6.258 ns t149
+        lc40_7_5_1 (LogicCell40) carryin -> carryout: 0.126 ns
+     6.384 ns t150
+        lc40_7_5_2 (LogicCell40) carryin -> carryout: 0.126 ns
+     6.510 ns t151
+        lc40_7_5_3 (LogicCell40) carryin -> carryout: 0.126 ns
+     6.637 ns t152
+        lc40_7_5_4 (LogicCell40) carryin -> carryout: 0.126 ns
+     6.763 ns t153
+        lc40_7_5_5 (LogicCell40) carryin -> carryout: 0.126 ns
+     6.889 ns net_15080 (core_i.orbit_i.sunlight_SB_DFFESS_Q_D_SB_LUT4_O_I2_SB_LUT4_O_I0[29])
+        lc40_7_5_6 (LogicCell40) carryin -> carryout: 0.126 ns
+     7.015 ns net_15086 ($nextpnr_ICESTORM_LC_1$I3)
+        inmux_7_5_15086_15096 (InMux) I -> O: 0.260 ns
+        lc40_7_5_7 (LogicCell40) in3 -> lcout: 0.316 ns
+     7.590 ns net_12875 (core_i.orbit_i.sunlight_SB_DFFESS_Q_D_SB_LUT4_O_I2_SB_LUT4_O_I0[30])
+        t794 (LocalMux) I -> O: 0.330 ns
+        inmux_7_5_15033_15087 (InMux) I -> O: 0.260 ns
+        lc40_7_5_6 (LogicCell40) in0 -> lcout: 0.449 ns
+     8.628 ns net_12874 (core_i.orbit_i.sunlight_SB_DFFESS_Q_D_SB_LUT4_O_I2[3])
+        t793 (LocalMux) I -> O: 0.330 ns
+        inmux_8_6_17272_17319 (InMux) I -> O: 0.260 ns
+     9.217 ns net_17319 (core_i.orbit_i.sunlight_SB_DFFESS_Q_D_SB_LUT4_O_I2[3])
+        lc40_8_6_6 (LogicCell40) in0 [setup]: 0.400 ns
+     9.617 ns net_15106 (core_i.sunlight)
 
 Resolvable net names on path:
-     0.640 ns ..  1.229 ns core_i.orbit_i.tick[1]
-     1.608 ns ..  2.197 ns core_i.orbit_i.sunlight_SB_DFFSS_Q_D_SB_LUT4_O_I0_SB_LUT4_O_I0[0]
-     3.312 ns ..  3.509 ns core_i.orbit_i.sunlight_SB_DFFSS_Q_D_SB_LUT4_O_I0_SB_LUT4_O_I0[7]
-     4.518 ns ..  4.715 ns core_i.orbit_i.sunlight_SB_DFFSS_Q_D_SB_LUT4_O_I0_SB_LUT4_O_I0[15]
-     5.725 ns ..  5.921 ns core_i.orbit_i.sunlight_SB_DFFSS_Q_D_SB_LUT4_O_I0_SB_LUT4_O_I0[23]
-     6.679 ns ..  6.679 ns core_i.orbit_i.sunlight_SB_DFFSS_Q_D_SB_LUT4_O_I0_SB_LUT4_O_I0[29]
-     6.805 ns ..  7.064 ns $nextpnr_ICESTORM_LC_1$I3
-     7.380 ns ..  7.969 ns core_i.orbit_i.sunlight_SB_DFFSS_Q_D_SB_LUT4_O_I0_SB_LUT4_O_I0[30]
-     8.418 ns ..  9.007 ns core_i.orbit_i.sunlight_SB_DFFSS_Q_D_SB_LUT4_O_I0[3]
+     0.640 ns ..  1.601 ns core_i.orbit_i.sunlight_SB_DFFESS_Q_D_SB_LUT4_O_I1_SB_LUT4_O_I0[2]
+     1.916 ns ..  2.506 ns core_i.orbit_i.sunlight_SB_DFFESS_Q_D_SB_LUT4_O_I2_SB_LUT4_O_I2[1]
+     3.523 ns ..  3.719 ns core_i.orbit_i.sunlight_SB_DFFESS_Q_D_SB_LUT4_O_I2_SB_LUT4_O_I0[7]
+     4.729 ns ..  4.925 ns core_i.orbit_i.sunlight_SB_DFFESS_Q_D_SB_LUT4_O_I2_SB_LUT4_O_I0[15]
+     5.935 ns ..  6.132 ns core_i.orbit_i.sunlight_SB_DFFESS_Q_D_SB_LUT4_O_I2_SB_LUT4_O_I0[23]
+     6.889 ns ..  6.889 ns core_i.orbit_i.sunlight_SB_DFFESS_Q_D_SB_LUT4_O_I2_SB_LUT4_O_I0[29]
+     7.015 ns ..  7.275 ns $nextpnr_ICESTORM_LC_1$I3
+     7.590 ns ..  8.179 ns core_i.orbit_i.sunlight_SB_DFFESS_Q_D_SB_LUT4_O_I2_SB_LUT4_O_I0[30]
+     8.628 ns ..  9.217 ns core_i.orbit_i.sunlight_SB_DFFESS_Q_D_SB_LUT4_O_I2[3]
                   lcout -> core_i.sunlight
 
-Total number of logic levels: 35
-Total path delay: 9.41 ns (106.31 MHz)
+Total number of logic levels: 34
+Total path delay: 9.62 ns (103.98 MHz)
 

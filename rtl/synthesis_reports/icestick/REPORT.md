@@ -2,21 +2,22 @@
 
 Target: Lattice iCEstick evaluation board — iCE40HX1K, TQ144 package,
 12 MHz on-board oscillator. Flow: **Yosys 0.33 → nextpnr-ice40 0.6 →
-icepack → icetime** (fully open source, no vendor tools). No programming
-step is included by design: no hardware is attached, and this build only
-evaluates fit, utilization, and timing.
+icepack → icetime** (fully open source, no vendor tools). The build runs
+fully without hardware; `make prog` (iceprog) flashes a connected board
+but is deliberately not part of `make all`.
 
 Reproduce from the repo root:
 
 ```bash
 make -C rtl/synthesis/icestick all stat-core schematic
+make -C rtl/synthesis/icestick prog     # only with an iCEstick connected
 ```
 
 ## 1. Fit verdict
 
 **The design fits comfortably: place-and-route and bitstream generation
-succeed, using 21.9% of the HX1K's logic cells, zero BRAM, and timing
-passes at 12 MHz with 73.9 ns of slack.** It could run ~9× faster than the
+succeed, using 33.4% of the HX1K's logic cells, zero BRAM, and timing
+passes at 12 MHz with 73.7 ns of slack.** It could run ~8× faster than the
 iCEstick clock requires.
 
 ## 2. RTL portability review (Xilinx → iCE40)
@@ -26,10 +27,16 @@ iCEstick clock requires.
   Nothing needed to be rewritten.
 - **I/O count, not logic, was the only porting obstacle.**
   `fpga_accelerator_top` exposes 132 port bits; the HX1K-TQ144 has ~96 user
-  I/Os. The evaluation wrapper `icestick_top.v` keeps the full core
-  on-chip: a 32-bit LFSR drives all core inputs and every output cone is
-  XOR-folded onto the five on-board LEDs, so synthesis cannot trim any core
-  logic and the numbers below reflect the real design.
+  I/Os. The deployment wrapper `icestick_top.v` keeps the full core
+  on-chip: a 32-bit LFSR drives all core inputs (packets arrive in visible
+  bursts) and every output cone reaches the five on-board LEDs, so
+  synthesis cannot trim any core logic.
+- **Human-visible demo timing.** `orbit_controller` gained a `PRESCALER`
+  parameter (default 1 = original behavior everywhere else; testbenches and
+  Vivado evidence unaffected). The iCEstick build sets 1,250,000, so one
+  95-tick orbit takes ≈9.9 s: green D5 = sunlight, D2 = comms rail
+  (shuts off in eclipse), D1 = FPGA burst rail, D3/D4 = pulse-stretched
+  processing/datapath activity.
 - **No DSP blocks on iCE40**: the FIR's constant coefficients (1, 2, 2, 1)
   map to shift/add logic (SB_CARRY chains). No multiplier hardware needed —
   confirmed by the zero-DSP result on the Vivado targets too.
@@ -41,15 +48,19 @@ iCEstick clock requires.
 From `yosys_stat_core.rpt` (core alone), `yosys_stat.rpt` (core + wrapper),
 and `nextpnr_report.json` (placed and routed):
 
-| Metric | Core only | Core + wrapper | Placed (nextpnr) | HX1K capacity | Used |
+| Metric | Core only | Core + demo wrapper | Placed (nextpnr) | HX1K capacity | Used |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| SB_LUT4 | 157 | 181 | — | — | — |
-| Flip-flops (SB_DFF*) | 120 | 152 | — | — | — |
-| SB_CARRY | 89 | 77 | — | — | — |
-| Logic cells (LC) | — | — | **280** | 1280 | **21.9%** |
+| SB_LUT4 | 157 | 320 | — | — | — |
+| Flip-flops (SB_DFF*) | 120 | 240 | — | — | — |
+| SB_CARRY | 89 | 156 | — | — | — |
+| Logic cells (LC) | — | — | **427** | 1280 | **33.4%** |
 | BRAM (4 kbit) | 0 | 0 | 0 | 16 | 0% |
 | I/O pins | — | 6 | 6 | 112 (die) | 5.4% |
 | Global buffers | — | — | 5 | 8 | 62.5% |
+
+The wrapper's growth over the core (LFSR, orbit prescaler, burst-window
+counter, LED pulse-stretchers) exists only to make the demo observable at
+human speed; the core itself is the 157-LUT4 column.
 
 ## 4. Timing and clock
 
@@ -58,10 +69,10 @@ checked by icetime (`-c 12`).
 
 | Source | Result |
 | --- | --- |
-| nextpnr achieved Fmax | **108.8 MHz** |
-| icetime critical path | **9.41 ns → 106.31 MHz** |
+| nextpnr achieved Fmax | **106.3 MHz** |
+| icetime critical path | **9.62 ns → 103.98 MHz** |
 | icetime 12 MHz check | **PASSED** |
-| **WNS at 12 MHz** | **+73.92 ns** (83.33 − 9.41) |
+| **WNS at 12 MHz** | **+73.71 ns** (83.33 − 9.62) |
 
 Raw data: `icetime_timing.rpt` (full critical-path breakdown),
 `nextpnr_report.json`, `nextpnr.log`.
@@ -94,12 +105,12 @@ Same RTL, three targets, three independent toolchains:
 | LUTs | 44 | 43 | 157 (core) |
 | Flip-flops | 90 | 90 | 120 (core) |
 | BRAM / DSP | 0 / 0 | 0 / 0 | 0 / 0 |
-| Timing @ 100 MHz | met, +8.25 ns | met, +4.57 ns | Fmax ≈ 106 MHz* |
+| Timing @ 100 MHz | met, +8.25 ns | met, +4.57 ns | Fmax ≈ 104 MHz* |
 | Timing @ 12 MHz (board clock) | — | — | met, +73.92 ns |
 | Dynamic power | ~1 mW (tool) | ~2 mW (tool) | n/a (no tool) |
 | Device static power | 592 mW (tool) | 90 mW (tool) | sub-10 mW class (datasheet) |
 
-*The iCE40 board clock is 12 MHz; 106 MHz is the icetime path-based Fmax
+*The iCE40 board clock is 12 MHz; 104 MHz is the icetime path-based Fmax
 estimate, marginally above the 100 MHz constraint used on the Vivado runs.
 
 The LUT-count difference is architectural, not a design change: iCE40

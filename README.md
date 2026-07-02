@@ -166,13 +166,20 @@ target validates the toolflow and demonstrates portability, not flight power.
 ### Open-source flow evidence (Lattice iCEstick)
 
 The same RTL also builds with a fully open-source flow (Yosys →
-nextpnr-ice40 → icepack) for the iCEstick's iCE40HX1K: **280 of 1280 logic
-cells (21.9%)**, zero BRAM/DSP, and timing passed at the board's 12 MHz
-clock with Fmax ≈ 106 MHz. No vendor tools or licenses required:
+nextpnr-ice40 → icepack) for the iCEstick's iCE40HX1K: **427 of 1280 logic
+cells (33.4%, core alone 157 LUT4s)**, zero BRAM/DSP, and timing passed at
+the board's 12 MHz clock with Fmax ≈ 104 MHz. No vendor tools or licenses
+required:
 
 ```bash
 make -C rtl/synthesis/icestick all stat-core schematic
+make -C rtl/synthesis/icestick prog   # flash a connected iCEstick
 ```
+
+On hardware, the bitstream runs a human-speed demo (one orbit ≈ 10 s):
+the green LED shows sunlight/eclipse, D2 shows the comms rail shutting off
+in eclipse, D1 the FPGA burst rail, and D3/D4 flash with packet processing
+and datapath activity.
 
 `rtl/synthesis_reports/icestick/REPORT.md` consolidates utilization,
 timing/WNS, the portability review, and a three-target cross-vendor

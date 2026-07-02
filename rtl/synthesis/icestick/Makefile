@@ -5,8 +5,10 @@
 #   make stat-core  utilization of fpga_accelerator_top alone (no wrapper)
 #   make schematic  top-level schematic SVG via yosys show
 #
-# There is intentionally NO programming (iceprog) target: no hardware
-# is attached; this flow only evaluates fit, utilization, and timing.
+#   make prog       flash the bitstream to a connected iCEstick (iceprog)
+#
+# `prog` is not part of `all`, so the flow still runs fully without
+# hardware attached.
 
 TOP      := icestick_top
 DEVICE   := hx1k
@@ -25,7 +27,7 @@ RTL := ../../fir_filter/fir_filter.v \
        ../../top/power_controller.v \
        ../../top/fpga_accelerator_top.v
 
-.PHONY: all timing stat-core schematic clean
+.PHONY: all timing stat-core schematic prog clean
 
 all: $(BUILD)/$(TOP).bin timing
 
@@ -57,6 +59,9 @@ schematic:
 	yosys -q -p "read_verilog -I../../fir_filter -I../../can_filter $(RTL); \
 		hierarchy -top fpga_accelerator_top; proc; opt_clean; \
 		show -format svg -prefix $(REPORTS)/schematic fpga_accelerator_top"
+
+prog: $(BUILD)/$(TOP).bin
+	iceprog $(BUILD)/$(TOP).bin
 
 clean:
 	rm -rf $(BUILD)

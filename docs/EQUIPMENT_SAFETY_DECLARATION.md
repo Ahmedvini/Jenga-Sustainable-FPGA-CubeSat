@@ -7,9 +7,12 @@ Author: Ahmed Elsheikh (ahmed.elsheikh@ejust.edu.eg) · Date: 2026-07-03
 
 | Item | Purpose | Power source |
 | --- | --- | --- |
-| 1 × laptop | Runs the entire live demo (Python simulation, Icarus Verilog RTL simulation, compiled PMEP C demo) | Internal battery / standard mains adapter |
+| 1 × laptop | Runs the live demo (Python simulation, Icarus Verilog RTL simulation, compiled PMEP C demo) | Internal battery / standard mains adapter |
+| 1 × Lattice iCEstick FPGA evaluation board | Runs the accelerator RTL on real silicon (LED orbit/power-mode demo) | USB from the laptop (5 V, < 2.5 W) |
+| Small sensor breakout modules (candidates: TMP117 temperature, ADXL345 accelerometer, INA3221/INA219 current monitor — final selection in progress) + breadboard and jumper wires | CubeSat prototype sensing demo | 3.3 V from USB-powered board rails (< 1 W total) |
 
-No other equipment is required for the demonstration.
+All hardware is USB-powered from the laptop; no external power supplies,
+no mains-connected custom hardware.
 
 ## Safety statement
 
@@ -26,8 +29,10 @@ No other equipment is required for the demonstration.
 
 ## Contingency addendum
 
-If an FPGA development board is added to the demo before judging (declared
-stretch goal), it would be a USB-powered evaluation board (5 V, < 2.5 W, no
-external power supply, no RF). This declaration will be updated and
-resubmitted before the repository freeze if that happens; otherwise the
-laptop-only declaration above is complete and final.
+The sensor selection for the CubeSat prototype is still being finalized;
+any sensor used will be a low-voltage (≤ 5 V) I2C/SPI breakout module of
+the classes listed above — no RF transmitters, no lithium cells, no
+actuators. If the final selection differs from the candidates listed, this
+declaration will be updated before the repository freeze. If the hardware
+prototype is not ready in time, the demo falls back to the laptop-only
+setup, which is fully self-sufficient.

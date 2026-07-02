@@ -1,4 +1,8 @@
-module fpga_accelerator_top (
+module fpga_accelerator_top #(
+    // Clock cycles per orbit tick; 1 = original full-speed behavior.
+    // Board demos raise this so the orbit runs at human-visible speed.
+    parameter ORBIT_PRESCALER = 1
+) (
     input wire clk,
     input wire rst,
     input wire packet_ready,
@@ -22,7 +26,11 @@ module fpga_accelerator_top (
 
     assign workload_pending = run_compression || run_filter || packet_ready;
 
-    orbit_controller orbit_i(.clk(clk), .rst(rst), .sunlight(sunlight));
+    orbit_controller #(.PRESCALER(ORBIT_PRESCALER)) orbit_i(
+        .clk(clk),
+        .rst(rst),
+        .sunlight(sunlight)
+    );
     scheduler scheduler_i(
         .clk(clk),
         .rst(rst),

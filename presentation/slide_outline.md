@@ -1,7 +1,7 @@
 # Final Presentation — Slide Outline (5-minute cap)
 
-Seven slides, ~40 s each. The live demo is separate (its run sheet is in
-`docs/FINAL_PHASE_WIN_PLAN.md`, Phase 5) — this deck must NOT eat demo time.
+Seven slides, ~40 s each. The live demo is separate (see
+`presentation/demo_run_sheet.md`) — this deck must NOT eat demo time.
 
 ## Slide 1 — Title (0:00–0:20)
 
@@ -22,7 +22,9 @@ Seven slides, ~40 s each. The live demo is separate (its run sheet is in
 ## Slide 3 — The EcoSat design (1:00–1:50)
 
 - Modular hot-swap electronics: OBC, power, sensing, comms + optional FPGA
-  accelerator (block diagram from `docs/architecture/system_block_diagram.png`).
+  accelerator. (Needs a system block diagram — the old `docs/architecture/`
+  images were removed; redraw one for this slide. RTL-level fallback:
+  `rtl/synthesis_reports/zcu106/schematic.pdf`.)
 - PMEP: USB-style plug-and-play enumeration over CAN/I2C with a DETECT line —
   modules are discovered, configured, and power-managed at runtime.
 - Orbit-aware duty cycling: active / low-rate / sleep / off per module, driven

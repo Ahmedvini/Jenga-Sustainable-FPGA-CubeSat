@@ -21,10 +21,12 @@ from simulation.power.energy_estimator import daily_energy_mwh, energy_per_orbit
 from simulation.power.power_model import SCENARIOS, baseline_average_power_mw
 from simulation.power.thermal_model import estimated_temperature_drop_c, relative_thermal_load
 from simulation.utils.csv_export import write_dict_rows, write_phase_rows
+from simulation.utils.plotting import generate_all_plots
 
 
 RESULTS_CSV = ROOT / "results" / "csv"
 RESULTS_REPORTS = ROOT / "results" / "reports"
+RESULTS_GRAPHS = ROOT / "results" / "graphs"
 
 
 def build_summary_rows() -> list[dict[str, float | str]]:
@@ -110,12 +112,19 @@ def main() -> None:
     write_phase_rows(RESULTS_CSV / "scenario_phase_power.csv", SCENARIOS)
     write_markdown_report(rows)
 
+    baseline_power = baseline_average_power_mw()
+    battery_wh = watt_hours(DEFAULT_CONFIG.battery_voltage_v, DEFAULT_CONFIG.battery_capacity_mah)
+    baseline_cycles = equivalent_full_cycles_per_year(daily_energy_mwh(baseline_power), battery_wh)
+    plots = generate_all_plots(baseline_power, baseline_cycles, SCENARIOS, rows, RESULTS_GRAPHS)
+
     print("EcoSat simulation complete")
     for row in rows:
         print(
             f"- {row['scenario']}: {row['average_power_mw']:.2f} mW, "
             f"{row['energy_savings_percent']:.2f}% energy saved"
         )
+    for plot in plots:
+        print(f"- wrote {plot.relative_to(ROOT)}")
     print(f"Results written under {ROOT / 'results'}")
 
 

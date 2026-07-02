@@ -127,4 +127,44 @@ HYBRID_FPGA_BURST = Scenario(
     ),
 )
 
-SCENARIOS = (MODULAR_DUTY_CYCLED, HYBRID_FPGA_BURST)
+SAFE_MODE_LOW_BATTERY = Scenario(
+    "safe_mode_low_battery",
+    "Operating-case check, not a savings claim: battery SOC is below the 35% "
+    "FPGA-activation threshold, so the scheduler sheds load to prioritize "
+    "recharge. FPGA burst is refused (fpga_activation_policy), comms is "
+    "limited to a 3-minute beacon, and sensing stays at low rate in sunlight.",
+    (
+        Phase(
+            "Sunlight recovery",
+            54.0,
+            (
+                Load("OBC STM32L496, low-power 4 MHz", 2.1),
+                Load("Power module, charging and tracking", 5.2),
+                Load("Sensing module, 1 Hz low-rate sample", 0.9),
+                Load("Comms module, rail switched off", 0.01),
+            ),
+        ),
+        Phase(
+            "Beacon downlink",
+            3.0,
+            (
+                Load("OBC STM32L496, active 80 MHz", 12.0),
+                Load("Power module, charging and tracking", 5.2),
+                Load("Sensing module, 1 Hz low-rate sample", 0.9),
+                Load("Comms module, TX/RX active", 35.0),
+            ),
+        ),
+        Phase(
+            "Eclipse",
+            38.0,
+            (
+                Load("OBC STM32L496, low-power 4 MHz", 2.1),
+                Load("Power module, battery monitor only", 1.8),
+                Load("Sensing module, 1 Hz low-rate sample", 0.9),
+                Load("Comms module, rail switched off", 0.01),
+            ),
+        ),
+    ),
+)
+
+SCENARIOS = (MODULAR_DUTY_CYCLED, HYBRID_FPGA_BURST, SAFE_MODE_LOW_BATTERY)

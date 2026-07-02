@@ -22,3 +22,15 @@ hybrid_fpga_burst,Eclipse,38.00,"Power module, battery monitor only",1.80,3.30,5
 hybrid_fpga_burst,Eclipse,38.00,"Sensing module, 1 Hz low-rate sample",0.90,3.30,2.97
 hybrid_fpga_burst,Eclipse,38.00,"Comms module, rail switched off",0.01,3.30,0.03
 hybrid_fpga_burst,Eclipse,38.00,"Spartan FPGA accelerator, rail off",0.01,3.30,0.03
+safe_mode_low_battery,Sunlight recovery,54.00,"OBC STM32L496, low-power 4 MHz",2.10,3.30,6.93
+safe_mode_low_battery,Sunlight recovery,54.00,"Power module, charging and tracking",5.20,3.30,17.16
+safe_mode_low_battery,Sunlight recovery,54.00,"Sensing module, 1 Hz low-rate sample",0.90,3.30,2.97
+safe_mode_low_battery,Sunlight recovery,54.00,"Comms module, rail switched off",0.01,3.30,0.03
+safe_mode_low_battery,Beacon downlink,3.00,"OBC STM32L496, active 80 MHz",12.00,3.30,39.60
+safe_mode_low_battery,Beacon downlink,3.00,"Power module, charging and tracking",5.20,3.30,17.16
+safe_mode_low_battery,Beacon downlink,3.00,"Sensing module, 1 Hz low-rate sample",0.90,3.30,2.97
+safe_mode_low_battery,Beacon downlink,3.00,"Comms module, TX/RX active",35.00,3.30,115.50
+safe_mode_low_battery,Eclipse,38.00,"OBC STM32L496, low-power 4 MHz",2.10,3.30,6.93
+safe_mode_low_battery,Eclipse,38.00,"Power module, battery monitor only",1.80,3.30,5.94
+safe_mode_low_battery,Eclipse,38.00,"Sensing module, 1 Hz low-rate sample",0.90,3.30,2.97
+safe_mode_low_battery,Eclipse,38.00,"Comms module, rail switched off",0.01,3.30,0.03

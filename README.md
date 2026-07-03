@@ -1,8 +1,9 @@
 # Jenga — Sustainable FPGA CubeSat
 
 > Submitted to the **AESS Sustainability Hackathon 2026, Challenge 1:
-> Sustainable Electronics for Space Systems**. The repository URL and
-> registered project id retain the original working name *EcoSat*.
+> Sustainable Electronics for Space Systems**. Originally developed
+> under the working name *EcoSat*; the old repository URL redirects
+> here.
 
 Jenga is an **FPGA-based CubeSat On-Board Computer (OBC) prototype**. A
 single Lattice iCE40HX1K FPGA (iCEstick) implements the satellite's
@@ -242,7 +243,7 @@ roadmap item.
 ## Repository Map
 
 ```text
-EcoSat-Sustainable-FPGA-CubeSat/   (project: Jenga)
+Jenga-Sustainable-FPGA-CubeSat/
 ├── docs/
 │   ├── architecture/     System/power/sensor/comms/OBC architecture, roadmap
 │   ├── BOM.md            Bill of materials for the bench prototype

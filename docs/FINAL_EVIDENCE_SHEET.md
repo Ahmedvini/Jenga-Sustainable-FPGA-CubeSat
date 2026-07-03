@@ -1,8 +1,8 @@
-# EcoSat — Final Evidence Sheet
+# Jenga (EcoSat) — Final Evidence Sheet
 
 **AESS Sustainability Hackathon 2026 — Challenge 1: Sustainable Electronics for Space Systems**
 Author: Ahmed Elsheikh (ahmed.elsheikh@ejust.edu.eg) · Date: 2026-07-03
-Repository: <https://github.com/Ahmedvini/EcoSat-Sustainable-FPGA-CubeSat>
+Repository: <https://github.com/Ahmedvini/Jenga-Sustainable-FPGA-CubeSat>
 
 ## Problem
 

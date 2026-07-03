@@ -1,5 +1,12 @@
 # Final Presentation — Slide Outline (5-minute cap)
 
+> **Superseded (2026-07-03):** `PRESENTATION_PLAN.md` is the current
+> plan (Jenga branding, per-slide script, Q&A prep). Kept for history.
+> Status change since this was written: the bench **power chain is now
+> assembled and working** (solar → CN3791 MPPT → 18650 → fuse →
+> MP1584 → 3.3 V), and the slide 3 note about missing architecture
+> images is stale — `docs/architecture/schematic.png` exists.
+
 Seven slides, ~40 s each. The live demo is separate (see
 `presentation/demo_run_sheet.md`) — this deck must NOT eat demo time.
 

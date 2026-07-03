@@ -1,4 +1,4 @@
-# Jenga — Presentation Plan (PRIVATE, gitignored)
+# Jenga — Presentation Plan (prep material, tracked in repo)
 
 Judging format: **5-min presentation + 5-min live demo + 4-min Q&A**.
 Scoring: **75% technical / 25% sustainability**. Onsite 6 July,
@@ -18,8 +18,9 @@ Export **PDF** for the submission package (name it
 - Ahmed Elsheikh · E-JUST · AESS Sustainability Hackathon 2026, Challenge 1
 - Repo: github.com/Ahmedvini/Jenga-Sustainable-FPGA-CubeSat (small QR optional)
 
-**Visual**: cropped hero from `docs/architecture/schematic.png` (title
-banner + iCEstick section), or a photo of the iCEstick.
+**Visual**: photo of the assembled bench hardware (solar panel + CN3791
++ 18650 + MP1584 + iCEstick), or cropped hero from
+`docs/architecture/schematic.png` (title banner + iCEstick section).
 
 **Say**: "Jenga is a CubeSat electronics platform built on one idea:
 a satellite should never spend power the mission state doesn't need.
@@ -49,18 +50,22 @@ yet a monolithic board burns full power through it, every orbit,
   CAN filter, RLE compression, FIR filter — all HDL finite-state
   machines. No soft CPU, no OS.
 - Power chain: Solar 6V/2W → CN3791 MPPT → 18650 → fuse → MP1584 → 3.3 V
+  — **assembled and working on the bench**
 - Six-sensor shared I2C bus (IMU, mag, lux, power, temp, RTC), single
-  FPGA master
-- Two layers: reference power model (numbers) + bench prototype (proof)
+  FPGA master (design stage — wiring is roadmap)
+- Two layers: reference power model (numbers) + assembled bench
+  prototype (proof)
 
 **Visual**: `docs/architecture/schematic.png` (full) — walk it left to
 right. Backup: Mermaid system diagram from
 `docs/architecture/SYSTEM_ARCHITECTURE.md` §1 rendered at mermaid.live.
 
 **Say**: "Power management isn't firmware asking politely — it's
-hardware state machines driving switched rails. The whole OBC fits in
-a third of the smallest FPGA Lattice makes, which is exactly the
-sustainability point: fly the smallest silicon that does the job."
+hardware state machines driving switched rails. And this power chain
+is no longer a drawing — it's assembled on the bench: solar in,
+regulated 3.3 V out. The whole OBC fits in a third of the smallest
+FPGA Lattice makes, which is exactly the sustainability point: fly
+the smallest silicon that does the job."
 
 ## Slide 4 — How it saves energy + results (1:45–2:45)
 
@@ -127,9 +132,10 @@ out — that's fewer replacement launches for the same mission-years."
 
 **On slide**
 - Working today: full sim + tests, 3-toolchain synthesis, LED orbit
-  demo on real silicon, drawn hardware design + BOM
-- Next: I2C sensor front-end, UART telemetry, **INA226 live measured
-  power vs the model** (the killer follow-up)
+  demo on real silicon, **assembled power chain (solar → CN3791 MPPT →
+  18650 → fuse → MP1584 → 3.3 V rail)** + BOM
+- Next: wire the six-sensor I2C front-end, UART telemetry, **INA226
+  live measured power vs the model** (the killer follow-up)
 - One sentence: **"Fly the smallest FPGA that fits the workload, on a
   switched rail."**
 
@@ -141,8 +147,9 @@ a fresh clone. Now let me show it running." → hand off to demo.
 ## Demo (5 min) — use `presentation/demo_run_sheet.md` (tracked, already written)
 
 Order: sim run → graphs → tests → RTL testbenches → PMEP demo →
-synthesis reports → (if iCEstick present: LED orbit demo, else backup
-video). Rehearse the handoff sentence from slide 7.
+power-chain hardware show-and-tell → synthesis reports → (if iCEstick
+present: LED orbit demo, else backup video). Rehearse the handoff
+sentence from slide 7.
 
 ## Q&A prep (4 min) — anticipated questions
 
@@ -157,8 +164,10 @@ video). Rehearse the handoff sentence from slide 7.
    sub-10 mW. Also: no proprietary runtime, fully open toolchain.
 3. **"What's measured vs modeled?"** — Modeled: power scenarios
    (datasheet currents). Measured/tool-verified: all utilization &
-   timing on three toolchains, working bitstream on real silicon.
-   Roadmap R5 adds INA226 live measurement.
+   timing on three toolchains, working bitstream on real silicon, and
+   the physical power chain assembled and delivering a regulated
+   3.3 V rail on the bench. Sensor-level live power (INA226 vs the
+   model) is roadmap R5.
 4. **"Radiation / space qualification?"** — Prototype demonstrates
    architecture, not flight qualification; the same RTL retargets
    rad-tolerant parts (portability proven across 3 vendors' tools).
@@ -185,6 +194,7 @@ video). Rehearse the handoff sentence from slide 7.
 - [ ] `rtl/synthesis_reports/icestick/placed.svg` → export PNG (slide 5)
 - [ ] `rtl/synthesis_reports/zcu106/gui_utilization_percent.png` (slide 5 alt)
 - [ ] Mermaid §1 diagram rendered at mermaid.live (slide 3 backup)
+- [ ] Photo of the assembled power chain hardware (slides 1, 3)
 
 ## Build & rehearsal checklist
 
@@ -193,4 +203,7 @@ video). Rehearse the handoff sentence from slide 7.
 - [ ] Copy deck + PDF + backup video to USB stick
 - [ ] Timed rehearsal ×2 (target 4:45, leave 15 s buffer)
 - [ ] Rehearse demo from a fresh clone once
+- [ ] Rehearse the power-chain show-and-tell (desk lamp → panel →
+      3.3 V reading); pack spares (fuse, jumpers, USB cables)
+- [ ] Re-record / extend the backup video with a power-chain clip
 - [ ] Charge laptop; disable notifications; offline-capable everything

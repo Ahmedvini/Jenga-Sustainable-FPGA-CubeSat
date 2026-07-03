@@ -52,7 +52,9 @@ they describe the *modeled* flight stack, not the bench hardware.
 
 ## Prototype hardware
 
-Full details: [`docs/architecture/SYSTEM_ARCHITECTURE.md`](docs/architecture/SYSTEM_ARCHITECTURE.md)
+Full details: [`docs/architecture/SYSTEM_ARCHITECTURE.md`](docs/architecture/SYSTEM_ARCHITECTURE.md),
+the drawn wiring schematic
+[`docs/architecture/schematic.png`](docs/architecture/schematic.png),
 and [`docs/BOM.md`](docs/BOM.md).
 
 ```mermaid

@@ -8,6 +8,10 @@ itself, module interactions, and the HX1K resource budget.
 
 ## 1. Hardware architecture
 
+Full wiring detail — including iCEstick pin assignments, decoupling,
+and the reset/status circuits — is in the drawn schematic:
+[`schematic.png`](schematic.png). The block view:
+
 ```mermaid
 flowchart TB
     subgraph EPS[Electrical power subsystem]
@@ -64,8 +68,8 @@ policy), (b) swap MP1584 for a buck-boost module, (c) run the rail at
 
 The FSM policy maps to real hardware as: `comms_power_en` /
 `fpga_power_en` (power_controller.v) → IRLZ44N gate (100 kΩ pulldown +
-~220 Ω series gate resistor). IRLZ44N is logic-level; at 3.3 V drive
-keep switched loads ≤ ~2 A.
+100 Ω series gate resistor, per `schematic.png` section 5). IRLZ44N is
+logic-level; at 3.3 V drive keep switched loads ≤ ~2 A.
 
 ## 3. Sensor architecture
 

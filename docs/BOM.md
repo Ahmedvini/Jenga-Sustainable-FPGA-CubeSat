@@ -20,8 +20,8 @@ see `docs/architecture/SYSTEM_ARCHITECTURE.md`.
 | 12 | INA226 breakout + shunt | 1 | V/I power monitor | I2C `0x40`; high-side on battery output |
 | 13 | MCP9808 breakout | 1 | temperature | I2C `0x18` |
 | 14 | DS3231 breakout | 1 | RTC | I2C `0x68` (fixed) |
-| 15 | IRLZ44N MOSFET (TO-220) | 1 | payload switch | logic-level; 100 kΩ pulldown + 220 Ω gate R |
-| 16 | Resistors: 2× 4.7 kΩ (I2C), 100 kΩ, 220 Ω | — | pull-ups / gate | I2C pull-ups to 3.3 V |
+| 15 | IRLZ44N MOSFET (TO-220) | 1 | payload switch | logic-level; 100 kΩ pulldown + 100 Ω gate R |
+| 16 | Resistors: 2× 4.7 kΩ (I2C), 100 kΩ, 100 Ω | — | pull-ups / gate | values per `architecture/schematic.png` |
 | 17 | Breadboard + jumpers + USB cables | — | interconnect | common ground everywhere |
 
 Explicitly **not** in the BOM: RF radio (modeled only), soft-CPU or SoC

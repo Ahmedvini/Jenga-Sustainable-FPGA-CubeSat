@@ -3,10 +3,10 @@
 
 === fpga_accelerator_top ===
 
-   Number of wires:                104
-   Number of wire bits:            749
-   Number of public wires:         104
-   Number of public wire bits:     749
+   Number of wires:                105
+   Number of wire bits:            750
+   Number of public wires:         105
+   Number of public wire bits:     750
    Number of memories:               0
    Number of memory bits:            0
    Number of processes:              0

@@ -12,11 +12,13 @@ venv/
 *.wdb
 results/reports/*.pdf
 video/*.mp4
-01_Challenge_1_Finalist_Requirements_and_Deadlines.docx.pdfpmep_demo
+01_Challenge_1_Finalist_Requirements_and_Deadlines.docx.pdf
+pmep_demo
 vivado_project/
 .Xil/
 *.str
 clockInfo.txt
 rtl/synthesis/icestick/build/
+rtl/synthesis_reports/icestick/schematic.dot
 TDD_Modular_CubeSat_Electronics_FPGA.docx
-FINAL_PHASE_WIN_PLAN.mdrtl/synthesis_reports/icestick/routed.svg
+FINAL_PHASE_WIN_PLAN.md

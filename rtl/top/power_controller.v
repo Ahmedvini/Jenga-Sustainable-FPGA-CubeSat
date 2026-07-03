@@ -1,3 +1,7 @@
+// OBC power controller (Jenga FPGA-based OBC).
+// Drives switched-rail enables: comms rail follows sunlight; the FPGA
+// burst rail is raised only in sunlight with pending work. On the bench
+// these enables drive the IRLZ44N payload switch / rail gating.
 module power_controller (
     input wire clk,
     input wire rst,

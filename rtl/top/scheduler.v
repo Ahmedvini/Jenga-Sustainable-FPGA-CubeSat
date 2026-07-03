@@ -1,3 +1,7 @@
+// OBC task scheduler (Jenga FPGA-based OBC).
+// Gates workloads by orbit state: compression only in sunlight (comms
+// rail available for downlink), CAN filtering whenever packets arrive.
+// Registered outputs; policy mirrors simulation/scheduler/.
 module scheduler (
     input wire clk,
     input wire rst,

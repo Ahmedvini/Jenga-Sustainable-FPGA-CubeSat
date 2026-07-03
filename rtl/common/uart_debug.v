@@ -1,3 +1,5 @@
+// STUB ONLY — not a functional UART. Registers data[0] onto tx as a
+// synthesis placeholder. Real 8N1 UART TX is roadmap item R1.
 module uart_debug (
     input wire clk,
     input wire rst,

@@ -1,3 +1,5 @@
+// Jenga OBC core. Module name retained as fpga_accelerator_top for
+// traceability with committed synthesis reports (rename = roadmap R6).
 module fpga_accelerator_top #(
     // Clock cycles per orbit tick; 1 = original full-speed behavior.
     // Board demos raise this so the orbit runs at human-visible speed.

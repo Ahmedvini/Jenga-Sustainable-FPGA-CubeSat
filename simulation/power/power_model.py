@@ -1,4 +1,12 @@
-"""Power-budget primitives and scenario calculations."""
+"""Power-budget primitives and scenario calculations.
+
+Flight REFERENCE model: load names/currents (STM32L496-class OBC,
+CC1120-class radio, ...) are the documented datasheet basis of the
+baseline-vs-optimized comparison. The bench prototype implements the
+same policy on an FPGA-based OBC (iCE40HX1K); see docs/architecture/.
+Do not rename loads without regenerating results/ and the evidence
+sheet.
+"""
 
 from dataclasses import dataclass
 

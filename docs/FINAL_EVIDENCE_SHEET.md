@@ -14,7 +14,8 @@ discharge every orbit, and shortens the usable life of the satellite.
 ## Core function (the one stable function we demonstrate)
 
 Orbit-aware duty cycling of a modular CubeSat electronics subsystem: the OBC
-switches hot-swappable modules (power, sensing, comms, optional FPGA
+(implemented as FPGA finite-state machines in the prototype) switches
+hot-swappable modules (power, sensing, comms, optional FPGA
 accelerator) between **active / low-rate / sleep / off** power modes as the
 satellite moves between sunlight and eclipse, with module discovery and
 hot-swap handled by the PMEP plug-and-play enumeration protocol.
@@ -55,6 +56,11 @@ The safe-mode case is a policy-robustness check, not a savings claim: below
   (Zynq UltraScale+ XCZU7EV, development) and Zynq-7010 (28 nm Spartan-class
   fabric, flight reference). 44 LUTs / 90 FFs, timing met at 100 MHz, ~1–2 mW
   dynamic; reports in `rtl/synthesis_reports/`.
+- Bench prototype: the same power policy runs in HDL on an FPGA-based
+  OBC (Lattice iCE40HX1K) with a real solar→MPPT→Li-ion→3.3 V chain and
+  a six-sensor I2C suite; see `docs/architecture/` and `docs/BOM.md`.
+  Headline numbers come from the reference simulation above, not from
+  bench measurements.
 
 ## Net-savings accounting (control and decision-logic overhead)
 

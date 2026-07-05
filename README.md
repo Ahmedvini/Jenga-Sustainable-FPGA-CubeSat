@@ -167,6 +167,17 @@ energy surplus, 14× fuse margin, and an MP1584 dropout floor at
 27.5% SOC — safely below the 35% safe-mode policy threshold, so the
 scheduler sheds load before the converter ever reaches dropout.
 
+An animated proof-of-concept clip of the same simulation (battery SOC
+and rail power across three orbits, sunlight/eclipse bands, live
+readout) renders with:
+
+```bash
+python3 simulation/bench/render_video.py
+```
+
+producing `video/bench_sim_poc.gif` and the static overview frame
+`results/graphs/bench_orbit_profile.png`.
+
 ## RTL Evidence
 
 | Folder | Contents |

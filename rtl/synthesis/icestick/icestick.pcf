@@ -10,8 +10,27 @@ set_io led[2] 97     # D3 (red)
 set_io led[3] 96     # D4 (red)
 set_io led[4] 95     # D5 (green, center)
 
-# Placeholders for a future real integration (uncomment and rename):
-# PMOD J2:   set_io <signal> 78 | 79 | 80 | 81 | 87 | 88 | 90 | 91
-# Header J1: set_io <signal> 112 | 113 | 114 | 115 | 116 | 117 | 118 | 119
-# Header J3: set_io <signal> 62 | 61 | 60 | 56 | 48 | 47 | 45 | 44
-# IrDA:      set_io <signal> 106 (RXD) | 105 (TXD) | 107 (SD)
+# --- Decided sensor/telemetry pin map (Jenga bench integration) ---
+# Uncomment each line when the matching RTL port lands (roadmap R1/R2).
+# Maps the signal names from docs/architecture/schematic.png to real
+# TQ144 pins. nextpnr errors on constraints for ports that don't exist
+# in the top module, so these stay commented until then.
+#
+# UART telemetry: NO external wiring — the on-board FT2232H channel B
+# is hard-wired to these pins and shows up on the laptop as the second
+# ttyUSB device of the iCEstick:
+# set_io uart_tx 8      # FPGA -> FTDI -> laptop (schematic UART_TX)
+# set_io uart_rx 9      # laptop -> FTDI -> FPGA (schematic UART_RX)
+#
+# I2C sensor bus + payload control on PMOD J2 (open-drain SDA/SCL,
+# external 4.7k pull-ups to the sensor rail; grounds must be common):
+# set_io i2c_sda 78     # J2 pin 1 (schematic I2C_SDA)
+# set_io i2c_scl 79     # J2 pin 2 (schematic I2C_SCL)
+# set_io payload_en 80  # J2 pin 3 -> IRLZ44N gate (schematic PAYLOAD_EN)
+# set_io imu_int 81     # J2 pin 4 <- MPU6050 INT (schematic IMU_INT)
+# spare J2: 87 | 88 | 90 | 91
+#
+# More I/O if needed:
+# Header J1: 112 | 113 | 114 | 115 | 116 | 117 | 118 | 119
+# Header J3: 62 | 61 | 60 | 56 | 48 | 47 | 45 | 44
+# IrDA (avoid, used by transceiver): 106 (RXD) | 105 (TXD) | 107 (SD)

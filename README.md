@@ -148,6 +148,25 @@ Simulation outputs are written under `results/`:
 | `results/graphs/scenario_comparison.png` | Average power and energy per orbit, per scenario |
 | `results/graphs/battery_cycles.png` | Equivalent full battery cycles per year |
 
+### Bench circuit electrical simulation
+
+The full bench power chain (solar → 1N5819 → CN3791 MPPT → 18650 →
+1 A fuse → MP1584 → 3.3 V rail → sensors + IRLZ44N payload switch,
+exactly as drawn in `docs/architecture/schematic.png`) has its own
+deterministic behavioral simulation:
+
+```bash
+python3 simulation/bench/circuit_model.py
+```
+
+It generates a **simulated electrical evidence sheet**
+(`results/reports/bench_evidence_sheet.md`) plus
+`results/csv/bench_power_budget.csv` and
+`results/csv/bench_orbit_timeseries.csv`. Key results: 91% orbit
+energy surplus, 14× fuse margin, and an MP1584 dropout floor at
+27.5% SOC — safely below the 35% safe-mode policy threshold, so the
+scheduler sheds load before the converter ever reaches dropout.
+
 ## RTL Evidence
 
 | Folder | Contents |

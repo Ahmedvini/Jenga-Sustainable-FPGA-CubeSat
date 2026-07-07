@@ -1,0 +1,50 @@
+# Live UART telemetry capture — Jenga OBC on iCEstick (iCE40HX1K)
+# Captured 2026-07-06 from /dev/ttyUSB (on-board FT2232H channel B,
+# 115200 8N1, FPGA pin 8). One frame every ~0.35 s; demo orbit ~9.9 s.
+#
+# Frame format: JGA n=<frame#> s=<sunlight> b=<burst rail>
+#               p=<CAN packets forwarded> z=<RLE words> f=<FIR samples>
+# All multi-bit fields are hex; the counters are free-running 16-bit
+# (they wrap). Stimulus is the on-chip LFSR (sensor front-end is
+# roadmap R2).
+#
+# What to look for — the scheduler policy is visible in the data:
+#   * frames n=0148..0153 (s=0, eclipse): z FREEZES at 0863 — the
+#     scheduler gates RLE compression off in eclipse
+#   * p keeps counting through eclipse — CAN filtering runs in all
+#     orbit phases, by design
+#   * b (FPGA burst rail) is 0 for the whole eclipse and fires again
+#     immediately at sunrise (n=0154)
+#
+JGA n=0143 s=1 b=0 p=C959 z=3983 f=3791
+JGA n=0144 s=1 b=1 p=D545 z=18AA f=3697
+JGA n=0145 s=1 b=0 p=D545 z=18AC f=3698
+JGA n=0146 s=1 b=0 p=D545 z=18AC f=3698
+JGA n=0147 s=1 b=0 p=D545 z=18AC f=3698
+JGA n=0148 s=0 b=0 p=E1AD z=0863 f=366F
+JGA n=0149 s=0 b=0 p=E1AD z=0863 f=366F
+JGA n=014A s=0 b=0 p=E1AD z=0863 f=366F
+JGA n=014B s=0 b=0 p=E1AD z=0863 f=366F
+JGA n=014C s=0 b=0 p=EDA8 z=0863 f=366E
+JGA n=014D s=0 b=0 p=EDA8 z=0863 f=366F
+JGA n=014E s=0 b=0 p=EDA8 z=0863 f=366F
+JGA n=014F s=0 b=0 p=EDA8 z=0863 f=366F
+JGA n=0150 s=0 b=0 p=F980 z=0863 f=35D3
+JGA n=0151 s=0 b=0 p=F980 z=0863 f=35D4
+JGA n=0152 s=0 b=0 p=F980 z=0863 f=35D4
+JGA n=0153 s=0 b=0 p=F980 z=0863 f=35D4
+JGA n=0154 s=1 b=1 p=05BB z=76E0 f=2E92
+JGA n=0155 s=1 b=0 p=05BB z=76E1 f=2E92
+JGA n=0156 s=1 b=0 p=05BB z=76E1 f=2E92
+JGA n=0157 s=1 b=0 p=05BB z=76E1 f=2E92
+JGA n=0158 s=1 b=1 p=11CB z=5738 f=2FB0
+JGA n=0159 s=1 b=0 p=11CB z=5739 f=2FB0
+JGA n=015A s=1 b=0 p=11CB z=5739 f=2FB0
+JGA n=015B s=1 b=0 p=11CB z=5739 f=2FB0
+JGA n=015C s=1 b=0 p=1DEA z=3630 f=2E7F
+JGA n=015D s=1 b=0 p=1DEA z=3630 f=2E7F
+JGA n=015E s=1 b=0 p=1DEA z=3630 f=2E7F
+JGA n=015F s=1 b=0 p=1DEA z=3630 f=2E7F
+JGA n=0160 s=1 b=0 p=29FC z=10A4 f=28A1
+JGA n=0161 s=1 b=0 p=29FC z=10A4 f=28A1
+JGA n=0162 s=1 b=0 p=29FC z=10A4 f=28A1

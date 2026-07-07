@@ -12,15 +12,15 @@ set_io led[4] 95     # D5 (green, center)
 
 # --- Decided sensor/telemetry pin map (Jenga bench integration) ---
 # Uncomment each line when the matching RTL port lands (roadmap R1/R2).
-# Maps the signal names from docs/architecture/schematic.png to real
+# Maps the signal names from docs/a·rchitecture/schematic.png to real
 # TQ144 pins. nextpnr errors on constraints for ports that don't exist
 # in the top module, so these stay commented until then.
 #
 # UART telemetry: NO external wiring — the on-board FT2232H channel B
 # is hard-wired to these pins and shows up on the laptop as the second
 # ttyUSB device of the iCEstick:
-# set_io uart_tx 8      # FPGA -> FTDI -> laptop (schematic UART_TX)
-# set_io uart_rx 9      # laptop -> FTDI -> FPGA (schematic UART_RX)
+set_io uart_txd 8     # FPGA -> FTDI -> laptop (schematic UART_TX), live
+# set_io uart_rxd 9   # laptop -> FTDI -> FPGA (schematic UART_RX), future
 #
 # I2C sensor bus + payload control on PMOD J2 (open-drain SDA/SCL,
 # external 4.7k pull-ups to the sensor rail; grounds must be common):

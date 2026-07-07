@@ -34,6 +34,7 @@ run_tb() {
 run_tb tb_fir_filter -I rtl/fir_filter rtl/fir_filter/fir_filter.v rtl/fir_filter/tb_fir_filter.v
 run_tb tb_rle_compressor -I rtl/compression -I rtl/common rtl/compression/rle_compressor.v rtl/compression/tb_rle_compressor.v
 run_tb tb_can_filter -I rtl/can_filter rtl/can_filter/packet_classifier.v rtl/can_filter/can_packet_filter.v rtl/can_filter/tb_can_filter.v
+run_tb tb_uart_tx -I rtl/common rtl/common/uart_tx.v rtl/common/tb_uart_tx.v
 
 if [ "$status" -eq 0 ]; then
     echo "All RTL testbenches PASSED. Waveforms (VCD) in $BUILD_DIR"

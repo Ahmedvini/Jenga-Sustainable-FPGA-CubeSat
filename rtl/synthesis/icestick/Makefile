@@ -31,7 +31,7 @@ RTL := ../../fir_filter/fir_filter.v \
 
 all: $(BUILD)/$(TOP).bin timing
 
-$(BUILD)/$(TOP).json: synth.ys icestick_top.v $(RTL)
+$(BUILD)/$(TOP).json: synth.ys icestick_top.v ../../common/uart_tx.v $(RTL)
 	mkdir -p $(BUILD) $(REPORTS)
 	yosys -q -l $(REPORTS)/yosys.log -s synth.ys
 

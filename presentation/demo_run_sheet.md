@@ -12,16 +12,25 @@ match `results/reports/simulation_summary.md` and the Final Evidence Sheet.
    (70.97%) → safe mode 27.28 mW (policy check, not a savings claim).
 3. **Show `results/graphs/power_vs_time.png`** (~40 s): flat baseline vs.
    stepped sunlight/eclipse profile; point at the 6-minute FPGA burst spike.
-4. **`./rtl/simulations/iverilog/run_iverilog.sh`** (~45 s): three
-   self-checking testbenches print PASS against golden models — verification,
-   not just "it didn't crash".
-5. **`./pmep_demo`** (~45 s): live hot-swap enumeration and orbit-driven
-   power-mode switching trace.
-6. **Implementation evidence** (~30 s): same RTL implemented on three
-   targets — ZCU106 (Vivado), Zynq-7010, and iCE40HX1K via a fully
-   open-source flow; timing met everywhere; static power falls an order of
-   magnitude per device-class step, which is why the flight part is the
-   smallest FPGA that fits.
+4. **THE HARDWARE MOMENT** (~60 s): iCEstick already running (boots from
+   flash — just plug it in). Point at the LEDs: green = sunlight/eclipse
+   (~10 s orbit), D2 comms rail and D1 burst rail shutting down in
+   eclipse. Then run
+   **`python3 tools/telemetry_monitor.py`** — live decoded telemetry
+   from the FPGA over the same USB cable. Point at one line: in ECLIPSE
+   the RLE counter freezes ("compression gated off") while CAN filtering
+   continues — "that is the scheduler policy, running in silicon, in the
+   data." (If asked: stimulus is an on-chip LFSR; the I2C sensor
+   front-end is the next integration step and the sensors are on the
+   bench.)
+5. **`./rtl/simulations/iverilog/run_iverilog.sh`** (~35 s): four
+   self-checking testbenches print PASS against golden models —
+   verification, not just "it didn't crash".
+6. **`./pmep_demo` + implementation evidence** (~45 s): hot-swap
+   enumeration trace; then one breath on the three-target story — same
+   RTL on ZCU106 (Vivado), Zynq-7010, and iCE40HX1K (open-source flow);
+   timing met everywhere; static power falls an order of magnitude per
+   device-class step — fly the smallest FPGA that fits.
 7. **Close** (~25 s): headline number (47.83% energy per orbit), the one
    documented limitation (instantaneous mode transitions, fixed eclipse),
    and the sustainability KPI (≈92% battery cycle-life extension). Stop

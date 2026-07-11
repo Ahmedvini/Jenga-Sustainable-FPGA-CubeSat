@@ -61,6 +61,11 @@ The safe-mode case is a policy-robustness check, not a savings claim: below
   a six-sensor I2C suite; see `docs/architecture/` and `docs/BOM.md`.
   Headline numbers come from the reference simulation above, not from
   bench measurements.
+- Bench circuit electrical simulation (`python3
+  simulation/bench/circuit_model.py`, deterministic, behavioral stage
+  models): 91.3% orbit energy surplus, 14× fuse margin, MP1584 dropout
+  floor at 27.5% SOC vs the 35% safe-mode threshold — full results in
+  `results/reports/bench_evidence_sheet.md`.
 
 ## Net-savings accounting (control and decision-logic overhead)
 

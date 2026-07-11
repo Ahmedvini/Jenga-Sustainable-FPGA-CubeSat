@@ -127,9 +127,10 @@ sequenceDiagram
     U->>G: serial telemetry
 ```
 
-Implemented today: FIR → RLE path (synthesized, self-checking TBs);
-`packet_encoder`/`telemetry_buffer` exist as verified scaffolds.
-Staged: I2C front-end, FIFO drain FSM, real UART TX (roadmap R1–R3).
+Implemented today: FIR → RLE path, and the **UART TX with live ASCII
+telemetry framing (R1 — done, verified on hardware**, capture in
+`docs/bench_uart_capture.txt`). Staged: I2C front-end and the BRAM
+FIFO drain FSM (R2–R3).
 
 ## 6. OBC architecture
 
@@ -183,24 +184,26 @@ flowchart LR
 
 ## 8. iCE40HX1K resource budget
 
-Measured today (nextpnr, `rtl/synthesis_reports/icestick/`): **427 /
-1280 LC (33.4%)** including the LED demo wrapper; core alone 157 LUT4 /
-120 FF; 0 of 16 BRAM tiles used; Fmax ≈ 104 MHz vs 12 MHz required.
+Measured (nextpnr, `rtl/synthesis_reports/icestick/`, 2026-07-06 build
+with live UART telemetry): **922 / 1280 LC (72.0%)** including the demo
+wrapper and telemetry framing; core alone 157 LUT4 / 120 FF; 0 of 16
+BRAM tiles used; Fmax ≈ 109 MHz vs 12 MHz required.
 
-| Planned addition | Estimated LC | Basis |
+| Addition | LC | Basis |
 | --- | ---: | --- |
+| UART TX + ASCII telemetry framing | **495 (done, measured)** | R1 landed 2026-07-06; the 41-char frame mux + counters dominate, not the UART itself |
 | I2C master (byte-level FSM, 100 kHz) | 150–250 | typical minimal open-source masters |
 | Sensor sequencer + result store | 150–300 | round-robin FSM; results in **SB_RAM4K, not FFs** |
-| UART TX 115200 (TX only) | 60–120 | baud counter + shift register |
-| Telemetry FSM + framing + FIFO drain | 100–200 | reuse packet_encoder; FIFO in BRAM |
+| Telemetry FIFO drain integration | 50–100 | framing already built; FIFO in BRAM |
 | Payload switch control + soft-start | 10–30 | counter + comparator |
-| **Projected total (with today's 427)** | **~900–1330** | **70–104% of HX1K** |
+| **Projected total (with today's 922)** | **~1280–1600** | **100–125% of HX1K — over budget without the mitigations below** |
 
-Fit rules to stay inside the device (nextpnr routing degrades above
-~85% ≈ 1090 LC): keep all buffering in the 16 unused BRAM tiles; one
-shared I2C master (never per-sensor logic); single clock domain; no
-multipliers (FIR stays shift-add); width-minimize counters; if the
-budget still overflows, drop the CAN demo path from the board build
-(−~60 LC) before touching anything else. Growth path if the full
-telemetry stack lands: iCE40UP5K (5280 LC, 30× BRAM + SPRAM) with the
-identical open-source flow.
+Fit plan for R2 (nextpnr routing degrades above ~85% ≈ 1090 LC): first
+move the 41-char ASCII frame mux into an SB_RAM4K message ROM — the
+measured R1 cost shows the framing, not the UART, is the expensive part
+(recovers roughly 200–300 LC); keep all buffering in the 16 unused BRAM
+tiles; one shared I2C master (never per-sensor logic); single clock
+domain; no multipliers (FIR stays shift-add); width-minimize counters;
+drop the CAN demo path from the board build (−~60 LC) if still needed.
+Growth path: iCE40UP5K (5280 LC, 30× BRAM + SPRAM) with the identical
+open-source flow.

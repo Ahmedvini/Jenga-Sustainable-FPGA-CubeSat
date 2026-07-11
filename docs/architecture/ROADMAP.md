@@ -6,7 +6,7 @@ README and architecture doc. Constraint for all items: fit iCE40HX1K
 
 | # | Item | Outcome |
 |---|---|---|
-| R1 | Real UART TX (115200 8N1) replacing the `uart_debug` stub, + self-checking TB | live telemetry to the laptop |
+| R1 | ✅ **Done 2026-07-06** — real UART TX (115200 8N1) + ASCII telemetry framing, self-checking TB, verified live on hardware (`docs/bench_uart_capture.txt`); measured cost 495 LC — informs the R9 budget | live telemetry to the laptop |
 | R2 | I2C master FSM + round-robin sensor sequencer (6 devices, BRAM result store), + TB with I2C slave model | real sensor data into the datapath |
 | R3 | Telemetry FSM: integrate `packet_encoder` + `telemetry_buffer` (move FIFO to SB_RAM4K), drain gated by `comms_power_en` | end-to-end sensors→UART chain |
 | R4 | Close the loop on policy: BH1750 → measured sunlight into `orbit_controller`; INA226 SOC proxy → safe-mode threshold in RTL (mirrors `fpga_activation_policy`) | measured, not scheduled, orbit state |

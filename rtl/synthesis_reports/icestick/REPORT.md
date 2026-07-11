@@ -9,9 +9,10 @@ open source, no vendor tools or licenses. The build runs entirely
 without hardware; `make prog` (iceprog) flashes a connected board but
 is deliberately not part of `make all`.
 
-**Last re-verified: 2026-07-03, from a clean rebuild** (`make clean all
-stat-core schematic`), after the OBC documentation update. All numbers
-below are from that build.
+**Last re-verified: 2026-07-06, from a clean rebuild and on hardware**
+(`make clean all` + `make prog`): this build adds the R1 UART telemetry
+transmitter, and its live output was captured from the board —
+`docs/bench_uart_capture.txt`. All numbers below are from that build.
 
 Reproduce from the repo root:
 
@@ -26,22 +27,25 @@ make -C rtl/synthesis/icestick prog     # only with an iCEstick connected
 | --- | --- |
 | Place-and-route | **success** (nextpnr-ice40, deterministic) |
 | Bitstream | **built** (`icepack`, `build/icestick_top.bin`) |
-| Logic cells | **427 / 1280 = 33.4%** (core alone: 157 LUT4) |
+| Logic cells | **922 / 1280 = 72.0%** (core alone: 157 LUT4) |
 | BRAM / DSP | **0 / 16 BRAM tiles; iCE40 has no DSP — none needed** |
-| I/O pins | 6 / 112 (clk + 5 LEDs) |
+| I/O pins | 7 / 112 (clk + 5 LEDs + UART TX) |
 | Global buffers | 8 / 8 (clk + promoted resets/enables) |
-| Timing at 12 MHz | **PASSED**, WNS **+73.71 ns** |
-| Fmax (nextpnr) | 106.29 MHz |
-| Fmax (icetime path analysis) | 9.62 ns critical path → **103.98 MHz** |
+| Timing at 12 MHz | **PASSED**, WNS **+74.18 ns** |
+| Fmax (nextpnr) | 110.91 MHz |
+| Fmax (icetime path analysis) | 9.15 ns critical path → **109.32 MHz** |
+| UART telemetry | **verified live on hardware** (115200 8N1, on-board FTDI) |
 
 ## 2. Fit verdict
 
-**The design fits comfortably: place-and-route and bitstream generation
-succeed, using a third of the HX1K's logic cells, zero BRAM, and timing
-passes at 12 MHz with 73.7 ns of slack.** It could run ~8× faster than
-the iCEstick clock requires. The remaining ~66% of the device plus all
-16 BRAM tiles are the budget for the staged OBC modules (I2C master,
-sensor sequencer, UART TX, telemetry FSM) — see the resource plan in
+**The design fits: place-and-route and bitstream generation succeed,
+using 72% of the HX1K's logic cells, zero BRAM, and timing passes at
+12 MHz with 74.2 ns of slack.** It could run ~9× faster than the
+iCEstick clock requires. This build includes the UART telemetry
+transmitter and ASCII framing (roadmap R1, verified live on hardware);
+the remaining ~28% plus all 16 unused BRAM tiles are the budget for the
+I2C master and sensor sequencer (R2) — tight, with mitigations planned:
+see the revised resource plan in
 `docs/architecture/SYSTEM_ARCHITECTURE.md` §8.
 
 ## 3. RTL portability review (Xilinx → iCE40)
@@ -74,17 +78,21 @@ From `yosys_stat_core.rpt` (core alone), `yosys_stat.rpt`
 
 | Metric | Core only | Core + demo wrapper | Placed (nextpnr) | HX1K capacity | Used |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| SB_LUT4 | 157 | 320 | — | — | — |
-| Flip-flops (SB_DFF*) | 120 | 240 | — | — | — |
-| SB_CARRY | 89 | 156 | — | — | — |
-| Logic cells (LC) | — | — | **427** | 1280 | **33.4%** |
+| SB_LUT4 | 157 | 702 | — | — | — |
+| Flip-flops (SB_DFF*) | 120 | 429 | — | — | — |
+| SB_CARRY | 89 | 291 | — | — | — |
+| Logic cells (LC) | — | — | **922** | 1280 | **72.0%** |
 | BRAM (4 kbit) | 0 | 0 | 0 | 16 | 0% |
-| I/O pins | — | 6 | 6 | 112 (die) | 5.4% |
+| I/O pins | — | 7 | 7 | 112 (die) | 6.3% |
 | Global buffers | — | — | 8 | 8 | 100% |
 
 The wrapper's growth over the core (LFSR, orbit prescaler, burst-window
-counter, LED pulse-stretchers) exists only to make the demo observable
-at human speed; the core itself is the 157-LUT4 column. All 8 global
+counter, LED pulse-stretchers, and now the R1 UART transmitter with its
+ASCII frame sequencer and telemetry counters) makes the demo observable
+at human speed and streams live state to the laptop; the core itself is
+the 157-LUT4 column. The frame character mux is the single largest
+wrapper block — moving it into an SB_RAM4K message ROM is the first
+planned optimization for R2 headroom. All 8 global
 buffers are used because nextpnr promotes the clock plus high-fanout
 reset/enable nets; staged modules on the same clock domain will not
 need more.
@@ -96,10 +104,10 @@ and independently checked by icetime (`-c 12`).
 
 | Source | Result |
 | --- | --- |
-| nextpnr achieved Fmax | **106.29 MHz** |
-| icetime critical path | **9.62 ns → 103.98 MHz** |
+| nextpnr achieved Fmax | **110.91 MHz** |
+| icetime critical path | **9.15 ns → 109.32 MHz** |
 | icetime 12 MHz check | **PASSED** |
-| **WNS at 12 MHz** | **+73.71 ns** (83.33 − 9.62) |
+| **WNS at 12 MHz** | **+74.18 ns** (83.33 − 9.15) |
 
 Raw data: `icetime_timing.rpt` (full critical-path breakdown),
 `nextpnr_report.json`; the run logs (`nextpnr.log`, `yosys.log`)
@@ -167,12 +175,12 @@ out-of-context run: identical 44 LUTs / 90 FFs, WNS +8.249 ns).
 | LUTs | 44 | 43 | 157 (core) |
 | Flip-flops | 90 | 90 | 120 (core) |
 | BRAM / DSP | 0 / 0 | 0 / 0 | 0 / 0 |
-| Timing @ 100 MHz | met, +8.25 ns | met, +4.57 ns | Fmax ≈ 104 MHz* |
-| Timing @ 12 MHz (board clock) | — | — | met, +73.71 ns |
+| Timing @ 100 MHz | met, +8.25 ns | met, +4.57 ns | Fmax ≈ 109 MHz* |
+| Timing @ 12 MHz (board clock) | — | — | met, +74.18 ns |
 | Dynamic power | ~1 mW (tool) | ~2 mW (tool) | n/a (no tool) |
 | Device static power | 592 mW (tool) | 90 mW (tool) | sub-10 mW class (datasheet) |
 
-*The iCE40 board clock is 12 MHz; 104 MHz is the icetime path-based
+*The iCE40 board clock is 12 MHz; 109 MHz is the icetime path-based
 Fmax estimate, marginally above the 100 MHz constraint used on the
 Vivado runs.
 
@@ -197,5 +205,8 @@ The bitstream runs a human-speed demo (one orbit ≈ 9.9 s, prescaler
 | D2 | `comms_power_en` | comms rail — shuts off in eclipse |
 | D3 | processing activity | filter/compression/FIR valids, pulse-stretched to visible flashes |
 | D4 | datapath activity | XOR-fold of payload/sample outputs, edge-triggered |
+| `uart_txd` (pin 8) | live telemetry | `JGA n=.. s=.. b=.. p=.. z=.. f=..` ASCII frames ~3×/s via the on-board FTDI; captured sample with the eclipse compression-gating visible: `docs/bench_uart_capture.txt` |
 
-Flash with `make -C rtl/synthesis/icestick prog`.
+Flash with `make -C rtl/synthesis/icestick prog`; read telemetry at
+115200 8N1 from the board's second FTDI serial port (no extra wiring —
+the FTDI channel B is hard-wired to iCE40 pin 8).

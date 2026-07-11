@@ -101,7 +101,7 @@ Linux, no DSP macros** — sized for the HX1K's 1280 logic cells.
 | RLE telemetry compressor | ✅ implemented, synthesized | `rtl/compression/rle_compressor.v` |
 | FIR sensor filter (shift-add taps, no multipliers) | ✅ implemented, synthesized | `rtl/fir_filter/fir_filter.v` |
 | Telemetry framing + buffer | 🟡 scaffold (`packet_encoder.v`, `telemetry_buffer.v`), integration on roadmap | `rtl/compression/` |
-| UART telemetry TX | 🟡 stub only (`uart_debug.v` is a placeholder, not a functional UART) | `rtl/common/` |
+| UART telemetry TX + live frame streaming | ✅ implemented, synthesized, **verified live on hardware** (115200 8N1 via on-board FTDI; capture in `docs/bench_uart_capture.txt`) | `rtl/common/uart_tx.v` |
 | I2C master + sensor sequencer | 🔜 roadmap (single master, round-robin over 6 devices) | — |
 
 Resource budget and fit analysis for the full OBC on the HX1K:
@@ -148,6 +148,36 @@ Simulation outputs are written under `results/`:
 | `results/graphs/scenario_comparison.png` | Average power and energy per orbit, per scenario |
 | `results/graphs/battery_cycles.png` | Equivalent full battery cycles per year |
 
+### Bench circuit electrical simulation
+
+The full bench power chain (solar → 1N5819 → CN3791 MPPT → 18650 →
+1 A fuse → MP1584 → 3.3 V rail → sensors + IRLZ44N payload switch,
+exactly as drawn in `docs/architecture/schematic.png`) has its own
+deterministic behavioral simulation:
+
+```bash
+python3 simulation/bench/circuit_model.py
+```
+
+It generates a **simulated electrical evidence sheet**
+(`results/reports/bench_evidence_sheet.md`) plus
+`results/csv/bench_power_budget.csv` and
+`results/csv/bench_orbit_timeseries.csv`. Key results: 91% orbit
+energy surplus, 14× fuse margin, and an MP1584 dropout floor at
+27.5% SOC — safely below the 35% safe-mode policy threshold, so the
+scheduler sheds load before the converter ever reaches dropout.
+
+An animated proof-of-concept clip of the same simulation (battery SOC
+and rail power across three orbits, sunlight/eclipse bands, live
+readout) renders with:
+
+```bash
+python3 simulation/bench/render_video.py
+```
+
+producing `video/bench_sim_poc.gif` and the static overview frame
+`results/graphs/bench_orbit_profile.png`.
+
 ## RTL Evidence
 
 | Folder | Contents |
@@ -156,7 +186,7 @@ Simulation outputs are written under `results/`:
 | `rtl/compression/` | RLE compressor, packet encoder, telemetry buffer, testbench |
 | `rtl/can_filter/` | CAN packet classifier/filter and testbench |
 | `rtl/top/` | Orbit controller, scheduler, power controller, OBC top level |
-| `rtl/common/` | FIFO, edge detector, debounce, UART stub |
+| `rtl/common/` | FIFO, UART TX (with self-checking testbench), edge detector, debounce |
 | `rtl/simulations/iverilog/` | Icarus Verilog build-and-run script |
 | `rtl/synthesis/vivado/` | Vivado batch/GUI flow scripts and OOC constraints |
 | `rtl/synthesis/icestick/` | Open-source Yosys/nextpnr flow for iCE40HX1K |
@@ -204,10 +234,10 @@ toolflow and demonstrates portability, not flight power.
 ### Open-source flow evidence (Lattice iCEstick — the OBC target)
 
 The same RTL builds with a fully open-source flow (Yosys →
-nextpnr-ice40 → icepack) for the iCEstick's iCE40HX1K: **427 of 1280
-logic cells (33.4%, core alone 157 LUT4s)**, zero BRAM/DSP, and timing
-passed at the board's 12 MHz clock with Fmax ≈ 104 MHz. No vendor tools
-or licenses required:
+nextpnr-ice40 → icepack) for the iCEstick's iCE40HX1K: **922 of 1280
+logic cells (72%, core alone 157 LUT4s)** including live UART
+telemetry, zero BRAM/DSP, and timing passed at the board's 12 MHz clock
+with Fmax ≈ 109 MHz. No vendor tools or licenses required:
 
 ```bash
 make -C rtl/synthesis/icestick all stat-core schematic
@@ -217,7 +247,12 @@ make -C rtl/synthesis/icestick prog   # flash a connected iCEstick
 On hardware, the bitstream runs a human-speed demo (one orbit ≈ 10 s):
 the green LED shows sunlight/eclipse, D2 shows the comms rail shutting
 off in eclipse, D1 the FPGA burst rail, and D3/D4 flash with packet
-processing and datapath activity.
+processing and datapath activity. The board also **streams live ASCII
+telemetry** (frame number, orbit state, rail states, datapath counters)
+at 115200 8N1 through its on-board FTDI — no extra wiring. A captured
+sample showing RLE compression freezing during eclipse (the scheduler
+policy, visible in real hardware data) is committed as
+`docs/bench_uart_capture.txt`.
 
 `rtl/synthesis_reports/icestick/REPORT.md` consolidates utilization,
 timing/WNS, the portability review, and a three-target cross-vendor

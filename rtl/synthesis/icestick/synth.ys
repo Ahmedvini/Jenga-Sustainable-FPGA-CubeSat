@@ -10,6 +10,7 @@ read_verilog -I../../fir_filter -I../../can_filter \
     ../../top/scheduler.v \
     ../../top/power_controller.v \
     ../../top/fpga_accelerator_top.v \
+    ../../common/uart_tx.v \
     icestick_top.v
 
 hierarchy -top icestick_top

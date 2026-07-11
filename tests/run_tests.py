@@ -20,6 +20,7 @@ TEST_MODULES = [
     "tests.test_scheduler",
     "tests.test_fpga_models",
     "tests.test_energy_analysis",
+    "tests.test_bench_circuit",
 ]
 
 
